@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="3f71a6c6-3d3c-408e-a180-8043457c6429" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../gitee/demo/core/src/main/java/com/example/demo/Info/Store.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../gitee/demo/core/src/main/java/com/example/demo/context/BaseStoreContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../gitee/demo/core/src/main/java/com/example/demo/context/PhysicStoreContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../gitee/demo/core/src/main/java/com/example/demo/context/StoreContext.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../gitee/demo/core/src/main/java/com/example/demo/handler/BaseStoreHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../gitee/demo/core/src/main/java/com/example/demo/handler/PhysicStoreHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../gitee/demo/core/src/main/java/com/example/demo/handler/ProcessResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../gitee/demo/core/src/main/java/com/example/demo/handler/StoreHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../gitee/demo/core/src/main/java/com/example/demo/processor/Processor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../gitee/demo/img.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../console agent/src/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-common/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-common/src/main/java/com/chinapost/szyw/agent/common/JvmRuntimeInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-common/src/main/java/com/chinapost/szyw/agent/common/ThreadUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-common/src/main/java/com/chinapost/szyw/agent/common/configuration/ActivationMethod.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-common/src/main/java/com/chinapost/szyw/agent/common/utils/AgentInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-common/src/main/java/com/chinapost/szyw/agent/common/utils/ProcessExecutionUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-common/src/main/java/com/chinapost/szyw/agent/common/utils/ResourceExtractionUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-common/src/main/java/com/chinapost/szyw/agent/common/utils/StringUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-common/src/main/java/com/chinapost/szyw/agent/common/utils/Version.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-common/src/main/java/com/chinapost/szyw/agent/common/utils/WildcardMatcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-core/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-core/src/main/java/com/chinapost/szyw/agent/bci/IndyBootstrap.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-core/src/main/java/com/chinapost/szyw/agent/bci/IndyPluginClassLoaderFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-core/src/main/java/com/chinapost/szyw/agent/bci/SZYWAgent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-core/src/main/java/com/chinapost/szyw/agent/bci/bytebuddy/ClassLoaderNameMatcher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-core/src/main/java/com/chinapost/szyw/agent/bci/bytebuddy/ErrorLoggingListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-core/src/main/java/com/chinapost/szyw/agent/bci/bytebuddy/MinimumClassFileVersionValidator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-core/src/main/java/com/chinapost/szyw/agent/bci/classloading/DiscriminatingMultiParentClassLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-core/src/main/java/com/chinapost/szyw/agent/bci/classloading/ExternalPluginClassLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-core/src/main/java/com/chinapost/szyw/agent/bci/classloading/IndyPluginClassLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-core/src/main/java/com/chinapost/szyw/agent/bci/classloading/LookupExposer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-core/src/main/java/com/chinapost/szyw/agent/configuration/AgentArgumentsConfigurationSource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-core/src/main/java/com/chinapost/szyw/agent/configuration/CoreConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-core/src/main/java/com/chinapost/szyw/agent/configuration/PrefixingConfigurationSourceWrapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-core/src/main/java/com/chinapost/szyw/agent/configuration/source/ConfigSources.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-core/src/main/java/com/chinapost/szyw/agent/configuration/source/PropertyFileConfigurationSource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-core/src/main/java/com/chinapost/szyw/agent/configuration/source/SystemPropertyConfigurationSource.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-core/src/main/java/com/chinapost/szyw/agent/holder/TracerHolder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-core/src/main/java/com/chinapost/szyw/agent/tracer/Tracer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-core/src/main/java/com/chinapost/szyw/agent/utils/PackageScanner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-core/src/main/java/com/chinapost/szyw/agent/utils/SystemStandardOutputLogger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-plugin-sdk/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-plugin-sdk/src/main/java/com/chinapost/szyw/agent/sdk/SZYWAgentInstrumentation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-plugin-sdk/src/main/java/com/chinapost/szyw/agent/sdk/internal/PluginClassLoaderRootPackageCustomizer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-plugin-sdk/src/main/java/com/chinapost/szyw/agent/sdk/internal/utils/PrivilegedActionUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-plugin-sdk/src/main/java/com/chinapost/szyw/agent/sdk/state/CallDepth.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-plugin-sdk/src/main/java/com/chinapost/szyw/agent/sdk/state/GlobalState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-plugin-sdk/src/main/java/com/chinapost/szyw/agent/sdk/state/GlobalVariables.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-plugin-sdk/src/main/java/com/chinapost/szyw/agent/sdk/weakconcurrent/DetachedThreadLocal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-plugin-sdk/src/main/java/com/chinapost/szyw/agent/sdk/weakconcurrent/WeakConcurrent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-plugin-sdk/src/main/java/com/chinapost/szyw/agent/sdk/weakconcurrent/WeakKeySoftValueLoadingCache.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-plugin-sdk/src/main/java/com/chinapost/szyw/agent/sdk/weakconcurrent/WeakMap.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-plugin-sdk/src/main/java/com/chinapost/szyw/agent/sdk/weakconcurrent/WeakSet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-premain/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-premain/src/main/java/com/chinapost/szyw/agent/premain/AgentJarLocator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-premain/src/main/java/com/chinapost/szyw/agent/premain/AgentMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-premain/src/main/java/com/chinapost/szyw/agent/premain/BootstrapCheck.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-premain/src/main/java/com/chinapost/szyw/agent/premain/BootstrapChecks.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-premain/src/main/java/com/chinapost/szyw/agent/premain/ExcludeJvmBootstrapCheck.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-premain/src/main/java/com/chinapost/szyw/agent/premain/JavaVersionBootstrapCheck.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-premain/src/main/java/com/chinapost/szyw/agent/premain/JvmToolBootstrapCheck.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-premain/src/main/java/com/chinapost/szyw/agent/premain/ShadedClassLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-premain/src/main/java/com/chinapost/szyw/agent/premain/VerifyNoneBootstrapCheck.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/agent-premain/src/main/java/com/chinapost/szyw/agent/premain/package-info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../szyw-agent/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../go/base/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../go/demo/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../go/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../company/analysis-excel/.vscode/launch.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../company/analysis-excel/result.xls" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/annotation/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/annotation/src/main/java/org/wzg/spring/annotation/Autowired.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/annotation/src/main/java/org/wzg/spring/annotation/Controller.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/annotation/src/main/java/org/wzg/spring/annotation/RequestMapping.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/annotation/src/main/java/org/wzg/spring/annotation/RequestParam.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/annotation/src/main/java/org/wzg/spring/annotation/Service.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/core/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/core/src/main/java/org/wzg/spring/core/ApplicationContextAware.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/core/src/main/java/org/wzg/spring/core/BeanFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/core/src/main/java/org/wzg/spring/core/FactoryBean.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/core/src/main/java/org/wzg/spring/core/beans/AbstractApplicationContext.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/core/src/main/java/org/wzg/spring/core/beans/ApplicationContext.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/core/src/main/java/org/wzg/spring/core/beans/BeanDefinition.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/core/src/main/java/org/wzg/spring/core/beans/BeanDefinitionReader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/core/src/main/java/org/wzg/spring/core/beans/BeanWrapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/core/src/main/java/org/wzg/spring/core/beans/DefaultListableBeanFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/core/src/main/java/org/wzg/spring/core/beans/config/BeanPostProcessor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/demo/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/mvc/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/mvc/src/main/java/org/wzg/spring/mvc/DispatcherServlet.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/mvc/src/main/java/org/wzg/spring/mvc/HandleMapping.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/mvc/src/main/java/org/wzg/spring/mvc/HandlerAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/mvc/src/main/java/org/wzg/spring/mvc/ModelAndView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/mvc/src/main/java/org/wzg/spring/mvc/View.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/mvc/src/main/java/org/wzg/spring/mvc/ViewResolver.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/mvc/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/GPSpring/mvc/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/MiniSpring/servlet-demo/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../gitee/MiniSpring/servlet-demo/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/MiniSpring/servlet-demo/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../gitee/MiniSpring/servlet-demo/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/MiniSpring/servlet-demo/src/main/java/com/star/HelloServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../gitee/MiniSpring/servlet-demo/src/main/java/com/star/HelloServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/MiniSpring/servlet-demo/web/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../gitee/MiniSpring/servlet-demo/web/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/MiniSpring/test/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../gitee/MiniSpring/test/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/MiniSpring/test/src/main/java/com/example/test/controller/PageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../gitee/MiniSpring/test/src/main/java/com/example/test/controller/PageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/MiniSpring/test/src/main/java/com/example/test/controller/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../gitee/MiniSpring/test/src/main/java/com/example/test/controller/TestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/MiniSpring/test/src/main/java/com/example/test/service/IModifyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../gitee/MiniSpring/test/src/main/java/com/example/test/service/IModifyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/MiniSpring/test/src/main/java/com/example/test/service/IQueryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../gitee/MiniSpring/test/src/main/java/com/example/test/service/IQueryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/MiniSpring/test/src/main/java/com/example/test/service/impl/ModifyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../gitee/MiniSpring/test/src/main/java/com/example/test/service/impl/ModifyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/MiniSpring/test/src/main/java/com/example/test/service/impl/QueryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../gitee/MiniSpring/test/src/main/java/com/example/test/service/impl/QueryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/MiniSpring/test/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../gitee/MiniSpring/test/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gitee/MiniSpring/test/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../gitee/MiniSpring/test/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../readlist/src/main/java/com/example/readlist/config/JdbcTemplateCondition.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../readlist/src/main/java/com/example/readlist/config/JdbcTemplateCondition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../readlist/src/main/java/com/example/readlist/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../readlist/src/main/java/com/example/readlist/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../readlist/src/main/java/com/example/readlist/controller/ReadingListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../readlist/src/main/java/com/example/readlist/controller/ReadingListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../readlist/src/main/java/com/example/readlist/entity/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../readlist/src/main/java/com/example/readlist/entity/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../readlist/src/main/java/com/example/readlist/entity/Reader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../readlist/src/main/java/com/example/readlist/entity/Reader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../readlist/src/main/java/com/example/readlist/repository/ReaderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../readlist/src/main/java/com/example/readlist/repository/ReaderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../readlist/src/main/java/com/example/readlist/repository/ReadingListRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../readlist/src/main/java/com/example/readlist/repository/ReadingListRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../readlist/src/main/resources/static/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/../../readlist/src/main/resources/static/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../readlist/src/main/resources/templates/error.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../readlist/src/main/resources/templates/error.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../readlist/src/main/resources/templates/readingList.html" beforeDir="false" afterPath="$PROJECT_DIR$/../../readlist/src/main/resources/templates/readingList.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../readlist/src/test/java/com/example/readlist/MockMvcTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../readlist/src/test/java/com/example/readlist/MockMvcTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/springAgentDemo/src/main/resources/application.properties" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/springAgentDemo/pom.xml" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/springAgentDemo/src/main/java/com/example/agentdemo/AgentDemoApplication.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/pom.xml" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="$MAVEN_REPOSITORY$" />
+        <option name="userSettingsFile" value="$USER_HOME$/.m2/settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="skipTests" value="true" />
+  </component>
+  <component name="ProjectId" id="2ewov9aWhbHCZJQQnRzejAzbgA4" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="jdk.selected.JAVA_MODULE" value="1.8.0_221" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/target" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.17964073" />
+    <property name="project.structure.side.proportion" value="0.13642567" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/target" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/consoleAgent" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.example.popertieslauncher" />
+      <recent name="com.example.springdemo" />
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.AgentDemoApplication">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="demo.Main" />
+      <module name="consoleAgent" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AgentDemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="springAgentDemo" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.agentdemo.AgentDemoApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpringdemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="springdemo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.springdemo.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.springdemo.SpringdemoApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.SpringdemoApplication" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3f71a6c6-3d3c-408e-a180-8043457c6429" name="Default Changelist" comment="" />
+      <created>1712825229287</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1712825229287</updated>
+      <workItem from="1712825230737" duration="11775000" />
+      <workItem from="1713187766638" duration="587000" />
+      <workItem from="1713229917306" duration="495000" />
+      <workItem from="1714030219976" duration="4703000" />
+      <workItem from="1714200989716" duration="243000" />
+      <workItem from="1714226575790" duration="23049000" />
+      <workItem from="1714303197154" duration="126000" />
+      <workItem from="1714303342909" duration="7990000" />
+      <workItem from="1714316973618" duration="13929000" />
+      <workItem from="1714387971003" duration="1457000" />
+      <workItem from="1714438874897" duration="200000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

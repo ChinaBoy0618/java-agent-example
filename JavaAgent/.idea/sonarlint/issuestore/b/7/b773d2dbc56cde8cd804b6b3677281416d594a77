@@ -1,0 +1,6 @@
+
+\
+java:S1128":Remove this unused import 'java.lang.reflect.Constructor'.(¿ã–þúÿÿÿÿ8ãŒùþñ1
+j
+java:S1128"HRemove this unused import 'java.lang.reflect.InvocationTargetException'.(è¾†„øÿÿÿÿ8¹·ùþñ1
+S	java:S106"9Replace this use of System.out or System.err by a logger.(–‚ú™ùÿÿÿÿ
