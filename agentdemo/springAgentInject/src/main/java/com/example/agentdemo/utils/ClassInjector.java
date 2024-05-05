@@ -80,31 +80,31 @@ public class ClassInjector {
     }
 
     public boolean loaderAgentJarToClassLoader(ClassLoader classLoader) throws URISyntaxException, MalformedURLException, IOException {
-//        ProtectionDomain protectionDomain = PrivilegedActionUtils.getProtectionDomain(getClass());
-//        List<URL> urlList = Collections.emptyList();
-//        String path;
-//        if (protectionDomain != null) {
-//            path = protectionDomain.getCodeSource().getLocation().toURI().getSchemeSpecificPart();
-//            if (!path.contains(".jar")) {//说明是ide启动
-//                Path newPath = Paths.get(path).getParent();
-//                File file = newPath.toFile();
-//                urlList = Arrays.stream(file.listFiles()).filter(e -> e.getPath().contains(".jar") && !e.getPath().contains("original") && !e.getPath().contains("sources")).map(e -> {
-//                    try {
-//                        return new File(e.getPath()).toURL();
-//                    } catch (MalformedURLException malformedURLException) {
-//                        //throw malformedURLException;
-//                        malformedURLException.printStackTrace();
-//                        return null;
-//                    }
-//                }).filter(e -> e != null).collect(Collectors.toList());
-//
-//            }else{
-//                urlList=new ArrayList<>();
-//                urlList.add(new File(path).toURL());
-//            }
-//        }
-        List<URL> urlList=new ArrayList<>();
-        urlList.add(new URL("jar:file:/Users/zhanguowang/Documents/popertiesLauncher-0.0.1-SNAPSHOT.jar!/"));
+        ProtectionDomain protectionDomain = PrivilegedActionUtils.getProtectionDomain(getClass());
+        List<URL> urlList = Collections.emptyList();
+        String path;
+        if (protectionDomain != null) {
+            path = protectionDomain.getCodeSource().getLocation().toURI().getSchemeSpecificPart();
+            if (!path.contains(".jar")) {//说明是ide启动
+                Path newPath = Paths.get(path).getParent();
+                File file = newPath.toFile();
+                urlList = Arrays.stream(file.listFiles()).filter(e -> e.getPath().contains(".jar") && !e.getPath().contains("original") && !e.getPath().contains("sources")).map(e -> {
+                    try {
+                        return new File(e.getPath()).toURL();
+                    } catch (MalformedURLException malformedURLException) {
+                        //throw malformedURLException;
+                        malformedURLException.printStackTrace();
+                        return null;
+                    }
+                }).filter(e -> e != null).collect(Collectors.toList());
+
+            }else{
+                urlList=new ArrayList<>();
+                urlList.add(new File(path).toURL());
+            }
+        }
+//        List<URL> urlList=new ArrayList<>();
+//        urlList.add(new URL("jar:file:/Users/zhanguowang/Documents/popertiesLauncher-0.0.1-SNAPSHOT.jar!/"));
 //        URL[] urls = JarLoader.loadMyAgentCoreLib();
 //        if (urls == null) {
 //            System.err.println("can not find my agent urls");

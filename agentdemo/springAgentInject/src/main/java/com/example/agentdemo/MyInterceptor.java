@@ -24,13 +24,10 @@ public class MyInterceptor {
                                    @SuperCall Callable<?> callable) throws Exception {
 
 
-
-        //时间统计开始
-        long start = System.currentTimeMillis();
         // 执行原函数
         Object result = callable.call();
         //执行时间统计
-        System.out.println(method.getName() + ":执行耗时" + (System.currentTimeMillis() - start) + "ms");
+        System.out.println(method.getName() + ":classLoader:" +result);
         return result;
     }
 }

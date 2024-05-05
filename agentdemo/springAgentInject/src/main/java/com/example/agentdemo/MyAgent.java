@@ -1,19 +1,36 @@
 package com.example.agentdemo;
 
 //import com.example.popertieslauncher.TestController;
+
+import com.example.agentdemo.template.TestController;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.asm.Advice;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.ClassFileLocator;
 import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.dynamic.loading.ClassInjector;
+import net.bytebuddy.implementation.MethodDelegation;
+import net.bytebuddy.implementation.bytecode.assign.Assigner;
 import net.bytebuddy.utility.JavaModule;
+import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
+import org.springframework.core.io.Resource;
+import org.springframework.core.type.AnnotationMetadata;
+import org.springframework.core.type.classreading.MetadataReader;
+import org.springframework.core.type.filter.TypeFilter;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
+import java.lang.annotation.Annotation;
 import java.lang.instrument.Instrumentation;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.security.ProtectionDomain;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
@@ -30,42 +47,111 @@ public class MyAgent {
     public static ClassLoader classLoader;
 
     public static void premain(String agentArgs, Instrumentation instrumentation) {
-
-
         System.out.println("premain started");
+        //get class
+        try {
+            ClassLoader cl= MyAgent.class.getClassLoader();
+            if(cl!=null){
+                Annotation[] annotations = cl.loadClass("com.example.agentdemo.template.TestController").getAnnotations();
+                if(annotations!=null){
+                    for(Annotation annotation:annotations){
+                        System.out.println("TestController Annotation: "+annotation);
+                    }
+                }else{
+                    System.out.println("TestController Annotation is null ");
+                }
+            }else{
+                System.out.println("ClassLoader Annotation is null ");
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+
+
+        class ErrorLoggingListener extends AgentBuilder.Listener.Adapter {
+
+            @Override
+            public void onError(String typeName, ClassLoader classLoader, JavaModule module, boolean loaded, Throwable throwable) {
+                System.out.println("bytebuddy error typeName:" + typeName + "|classLoader:" + classLoader + "|JavaModule:" + module
+                        + "|loaded:" + loaded + "|throwable:" + throwable.getMessage()
+                );
+                throwable.printStackTrace();
+            }
+        }
+
+
 //        securityManagerCheck();
         new AgentBuilder.Default()
 //                    .type(declaresMethod(isMain()))
 //                .type(named("org.springframework.boot.loader.JarLauncher"))
-                .type(declaresAnnotation(annotationType(named("org.springframework.boot.autoconfigure.SpringBootApplication"))))
+                .type(
+//                        declaresAnnotation(annotationType(named(Adapter"org.springframework.boot.autoconfigure.SpringBootApplication")))
+//                                .or(named("org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider"))
+//                                .or(named("org.springframework.core.io.support.PathMatchingResourcePatternResolver"))
+//                        named("org.springframework.core.io.support.PathMatchingResourcePatternResolver")
+//                        named("org.springframework.core.io.DefaultResourceLoader")
+                        named("org.springframework.core.type.classreading.SimpleAnnotationMetadataReadingVisitor")
+                )
                 .transform(new AgentBuilder.Transformer() {
                     @Override
                     public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, ProtectionDomain protectionDomain) {
-                        System.out.println("transform started:" + classLoader);
-                        MyAgent.classLoader = classLoader;
-                        //                            try{
-//
-////                          0       System.out.println(AgentJarLocator.getAppJarFile(protectionDomain).getAbsolutePath());
-////                                injectClass(protectionDomain);
-//                            }catch (URISyntaxException uriSyntaxException){
-//                                uriSyntaxException.printStackTrace();
-//                            }
-//                            catch (Exception ex){
-//                                ex.printStackTrace();
-//                            }
-
-//                            return null;
+                        System.out.println("SimpleAnnotationMetadataReadingVisitor transform installed:" + classLoader + "|TypeDescription:" + typeDescription);
                         return builder.method(
-//                                named("launch")
-//                                        .and(takesArgument(0, named("java.lang.ClassLoader")))
-//                                        .and(takesArgument(1, named("java.lang.String")))
-//                                        .and(takesArgument(2, named("java.lang.String[]")))
-                                named("main")
+//                                named("getClassLoader")
+//                                named("getResource")
+                                named("getMetadata")
                         )
 //                                    .intercept(MethodDelegation.to(MyInterceptor.class));
-                                .intercept(Advice.to(AdviceClass.class));
+                                .intercept(Advice.to(AdviceClass6.class));
+//                        .intercept(MethodDelegation.to(MyInterceptor.class));
                     }
                 })
+//                .transform(new AgentBuilder.Transformer() {
+//                    @Override
+//                    public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, ProtectionDomain protectionDomain) {
+//                        System.out.println("SpringBootApplication transform installed:" + classLoader + "|TypeDescription:" + typeDescription);
+//                        MyAgent.classLoader = classLoader;
+//
+//                        return builder.method(
+//                                //isMain()
+////                                named("launch")
+////                                        .and(takesArgument(0, named("java.lang.ClassLoader")))
+////                                        .and(takesArgument(1, named("java.lang.String")))
+////                                        .and(takesArgument(2, named("java.lang.String[]")))
+//                                named("main")
+//                        )
+////                                    .intercept(MethodDelegation.to(MyInterceptor.class));
+//                                .intercept(Advice.to(AdviceClass.class));
+//                    }
+//                })
+//                .transform(new AgentBuilder.Transformer() {
+//                    @Override
+//                    public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, ProtectionDomain protectionDomain) {
+//                        System.out.println("ClassPathScanningCandidateComponentProvider transformer "+classLoader);
+//                        return builder.method(named("isCandidateComponent")
+////                                .and(isPrivate())
+////                                .and(takesArgument(0, named("org.springframework.context.index.CandidateComponentsIndex")))
+////                                .and(takesArgument(1, named("java.lang.String")))
+//                        )
+//                                .intercept(Advice.to(AdviceClass.class));
+//                    }
+//                })
+//                .transform(new AgentBuilder.Transformer() {
+//                    @Override
+//                    public DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription typeDescription, ClassLoader classLoader, JavaModule module, ProtectionDomain protectionDomain) {
+//                        System.out.println("PathMatchingResourcePatternResolver transformer installed:" + classLoader + "|TypeDescription:" + typeDescription);
+//                        return builder.method(
+//                                named("findAllClassPathResources")
+//                                        .and(isProtected())
+//                                        .and(takesArgument(0, named("java.lang.String")))
+//                        )
+//                                .intercept(Advice.to(AdviceClass2.class));
+//                    }
+//                })
+                .with(new ErrorLoggingListener())
+                .with(AgentBuilder.RedefinitionStrategy.REDEFINITION)
+//                .disableClassFormatChanges()
                 .installOn(instrumentation);
 
         System.out.println("premain ended");
@@ -73,63 +159,132 @@ public class MyAgent {
 
     }
 
-    public static class AdviceClass {
-//        @Advice.OnMethodEnter()
-//        public static void onMethodEnter( @Advice.Origin Method method, @Advice.AllArguments Object[] allArguments) {
-////            System.out.println("setApplicationContext "+applicationContext);
-//            System.out.println("setApplicationContext method enter");
-//            System.out.println("setApplicationContext arg "+allArguments[0]);
-//            System.out.println("setApplicationContext method "+method);
+//    static List<TypeFilter> getTypeField(Object obj, String name) {
+//        try {
+//            Class clazz = ClassPathScanningCandidateComponentProvider.class;
+//            Field field = clazz.getField(name);
+//            field.setAccessible(true);
+//            return (List<TypeFilter>) field.get(obj);
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
 //        }
+//        return Collections.emptyList();
+//    }
+//
+//    static void print(List<TypeFilter> filters, String fieldName) {
+//        try {
+//            for (TypeFilter filter : filters) {
+//                System.out.println(fieldName + "|" + filter.toString());
+//            }
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//    }
 
-//        @Advice.OnMethodExit()
-//        public static void onMethodExit(@Advice.Return(
-//                readOnly = false) Set<URL> set) {
-////            System.out.println("setApplicationContext "+applicationContext);
-////            System.out.println("setApplicationContext arg "+allArguments[0]);
-////            System.out.println("setApplicationContext method "+method);
-////            System.out.println("setApplicationContext method end");
-////            System.out.println("getClassPathUrls inject URL");
-////            try{
-////                set.add(new URL("jar:file:/Users/zhanguowang/Documents/popertiesLauncher-0.0.1-SNAPSHOT.jar!/"));
-////            }catch (Exception ex){
-////                //do nothing
+//    public static class AdviceClass2 {
+//        @Advice.OnMethodEnter
+//        private static void onMethodEnter(@Advice.Origin Method method, @Advice.AllArguments Object[] allArguments) {
+//            System.out.println("findAllClassPathResources arg " + allArguments[0]);
+//            System.out.println("findAllClassPathResources method " + method);
+//        }
+//
+////        @Advice.OnMethodExit
+////        public static void onMethodExit(@Advice.Return Object resources) {
+////            try {
+////                for (Resource resource : (Resource[])resources) {
+////                    System.out.println("findAllClassPathResources URL:" + resource.getFilename());
+////                }
+////            } catch (Exception ex) {
 ////                ex.printStackTrace();
 ////            }
+////        }
+//    }
+
+//    public static class AdviceClass {
+////        @Advice.OnMethodEnter
+////        private static void onMethodEnter(@Advice.This Object obj) {
+////            System.out.println(" addCandidateComponentsFromIndex:" + obj);
+//////            print( getTypeField(obj, "includeFilters"),"includeFilters");
+//////            print( getTypeField(obj, "excludeFilters"),"excludeFilters");
+////        }
+//        @Advice.OnMethodEnter
+//        private static void onMethodEnter(@Advice.Origin Method method, @Advice.AllArguments Object[] allArguments) {
+//            System.out.println(method+" :"+allArguments[0]);
+//            //MetadataReader metadataReader
 //        }
 
-        @Advice.OnMethodEnter()
-        public static void onMethodEnter() {
+
+    //    }
+    public static class AdviceClass6 {
+        @Advice.OnMethodExit
+        private static void onMethodEnter(@Advice.Origin Method method, @Advice.Return(readOnly = false, typing = Assigner.Typing.DYNAMIC) Object obj) {
+            System.out.println(method + " enter:" + obj);
             try {
-//                PrivilegedActionUtils.action(new PrivilegedExceptionAction<Object>() {
-//                    @Override
-//                    public Object run() throws Exception {
-//                        new ClassInjector().loaderAgentJarToClassLoader(MyAgent.classLoader);
-//                        return null;
-//                    }
-//                });
-                System.out.println("onMethodEnter:"+classLoader);
-                if (classLoader.equals(ClassLoader.getSystemClassLoader())) {
-                    System.out.println("classLoader is AppClassLoader:"+classLoader);
-                    return;
+
+                AnnotationMetadata metadata = (AnnotationMetadata) obj;
+                Set<String> annotationTypes = metadata.getAnnotationTypes();
+                for (String v : annotationTypes) {
+                    System.out.println(metadata.getClassName() + "|annotation|" + v);
                 }
-                System.out.println("inject start:"+classLoader);
-//                new ClassInjector.UsingReflection(classLoader).inject(Collections.singletonMap(TypeDescription.ForLoadedType.of(TestController.class),
-//                        ClassFileLocator.ForClassLoader.read(TestController.class)));
-//                System.out.println(classLoader+" inject "+TestController.class+" succeed");
-//               Class clazz= classLoader.loadClass(TestController.class.getName());
-//                System.out.println(classLoader+" load "+clazz+" succeed");
-                new com.example.agentdemo.utils.ClassInjector().loaderAgentJarToClassLoader(classLoader);
-//                new ClassInjector.UsingReflection(classLoader).inject(Collections.singletonMap(TypeDescription.ForLoadedType.of(TestController.class),
-//                        ClassFileLocator.ForClassLoader.read(TestController.class)));
-//            Class clazz=   classLoader.loadClass(TestController.class.getName());
-//                System.out.println("transform ClassInjector.UsingReflection:"+clazz);
             } catch (Exception ex) {
-                System.out.println("transform error");
+                System.out.println(method+"Advice6 error");
                 ex.printStackTrace();
             }
         }
+
+
     }
+//    public static class AdviceClass5 {
+//        @Advice.OnMethodEnter
+//        private static void onMethodEnter(@Advice.Origin Method method, @Advice.AllArguments Object[] allArguments) {
+//            System.out.println(method+" :"+allArguments[0]);
+//            //MetadataReader metadataReader
+//        }
+//
+//
+//    }
+//    public static class AdviceClass {
+//
+//        @Advice.OnMethodEnter
+//        public static void onMethodEnter(@Advice.Origin Method method) {
+//            System.out.println(method + " onMethodEnter:" + classLoader);
+//            try {
+////                PrivilegedActionUtils.action(new PrivilegedExceptionAction<Object>() {
+////                    @Override
+////                    public Object run() throws Exception {
+////                        new ClassInjector().loaderAgentJarToClassLoader(MyAgent.classLoader);
+////                        return null;
+////                    }
+////                });
+//                if (classLoader.equals(ClassLoader.getSystemClassLoader())) {
+//                    System.out.println("classLoader is AppClassLoader:" + classLoader);
+//                    return;
+//                }
+//                System.out.println("main() inject start:" + classLoader);
+//                new ClassInjector.UsingReflection(classLoader).inject(Collections.singletonMap(TypeDescription.ForLoadedType.of(TestController.class),
+//                        ClassFileLocator.ForClassLoader.read(TestController.class)));
+//                new ClassInjector.UsingReflection(classLoader).inject(Collections.singletonMap(TypeDescription.ForLoadedType.of(RestController.class),
+//                        ClassFileLocator.ForClassLoader.read(RestController.class)));
+//                new ClassInjector.UsingReflection(classLoader).inject(Collections.singletonMap(TypeDescription.ForLoadedType.of(RequestMapping.class),
+//                        ClassFileLocator.ForClassLoader.read(RequestMapping.class)));
+//                new ClassInjector.UsingReflection(classLoader).inject(Collections.singletonMap(TypeDescription.ForLoadedType.of(GetMapping.class),
+//                        ClassFileLocator.ForClassLoader.read(GetMapping.class)));
+//                new ClassInjector.UsingReflection(classLoader).inject(Collections.singletonMap(TypeDescription.ForLoadedType.of(ResponseBody.class),
+//                        ClassFileLocator.ForClassLoader.read(ResponseBody.class)));
+//                System.out.println(classLoader + " inject " + TestController.class + " succeed");
+//                Class clazz = classLoader.loadClass(TestController.class.getName());
+//                System.out.println(classLoader + " load " + clazz + " succeed");
+////                new com.example.agentdemo.utils.ClassInjector().loaderAgentJarToClassLoader(classLoader);
+////                new ClassInjector.UsingReflection(classLoader).inject(Collections.singletonMap(TypeDescription.ForLoadedType.of(TestController.class),
+////                        ClassFileLocator.ForClassLoader.read(TestController.class)));
+////            Class clazz=   classLoader.loadClass(TestController.class.getName());
+////                System.out.println("transform ClassInjector.UsingReflection:"+clazz);
+//            } catch (Exception ex) {
+//                System.out.println("main() transform error");
+//                ex.printStackTrace();
+//            }
+//        }
+//    }
 
 
     //TODO 动态增强功能实现方式调研
