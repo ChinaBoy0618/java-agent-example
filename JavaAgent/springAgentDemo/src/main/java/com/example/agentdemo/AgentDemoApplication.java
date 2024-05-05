@@ -49,12 +49,12 @@ public class AgentDemoApplication implements ApplicationContextAware, Applicatio
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        String urlPath = applicationContext.getClassLoader().getResource("/").getPath();
-        String path = Thread.currentThread().getContextClassLoader().getResource("/").getPath();
-        System.out.println("classpath-Thread:" + path);
-        System.out.println("classpath-urlPath:" + urlPath);
-        printClassPathUrls("LaunchedClassLoader ", ((URLClassLoader) applicationContext.getClassLoader()).getURLs());
-        printClassPathUrls("AppClassLoader ", ((URLClassLoader) applicationContext.getClassLoader().getParent()).getURLs());
+//        String urlPath = applicationContext.getClassLoader().getResource("/").getPath();
+//        String path = Thread.currentThread().getContextClassLoader().getResource("/").getPath();
+//        System.out.println("classpath-Thread:" + path);
+//        System.out.println("classpath-urlPath:" + urlPath);
+//        printClassPathUrls("LaunchedClassLoader ", ((URLClassLoader) applicationContext.getClassLoader()).getURLs());
+//        printClassPathUrls("AppClassLoader ", ((URLClassLoader) applicationContext.getClassLoader().getParent()).getURLs());
 //        Arrays.stream(new File(path).listFiles()).filter(e -> e.getPath().contains(".jar") && !e.getPath().contains("original") && !e.getPath().contains("sources")).forEach(e -> {
 //            System.out.println("classpath-Thread:"+e.getName());
 //        });
@@ -71,12 +71,12 @@ public class AgentDemoApplication implements ApplicationContextAware, Applicatio
 //        AbstractHandlerMethodMapping
 //        ScannedGenericBeanDefinition
 
-//        System.out.println("BeanFactoryUtils#beanNamesForTypeIncludingAncestors>>>>>>");
-//        String[] names = BeanFactoryUtils.beanNamesForTypeIncludingAncestors(applicationContext, Object.class);
-//        print(applicationContext, names);
-//        System.out.println("ApplicationContext#getBeanNamesForType>>>>>>");
-//        names = applicationContext.getBeanNamesForType(Object.class);
-//        print(applicationContext, names);
+        System.out.println("BeanFactoryUtils#beanNamesForTypeIncludingAncestors>>>>>>");
+        String[] names = BeanFactoryUtils.beanNamesForTypeIncludingAncestors(applicationContext, Object.class);
+        print(applicationContext, names);
+        System.out.println("ApplicationContext#getBeanNamesForType>>>>>>");
+        names = applicationContext.getBeanNamesForType(Object.class);
+        print(applicationContext, names);
 
     }
 
@@ -125,7 +125,7 @@ public class AgentDemoApplication implements ApplicationContextAware, Applicatio
         System.out.println("context refreshed event");
         ApplicationContext _context = event.getApplicationContext();
     }
-//java -javaagent:/Users/zhanguowang/Desktop/project/gitee/agent\ demo/springAgentInject/target/springAgentInject-1-SNAPSHOT.jar -jar springAgentDemo-0.0.1-SNAPSHOT.jar
+//java -javaagent:/Users/zhanguowang/Desktop/project/github/java-agent-example/agentdemo/springAgentInject/target/springAgentInject-1-SNAPSHOT.jar -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=9999 -jar springAgentDemo-0.0.1-SNAPSHOT.jar
 }
 //    java -Dloader.path=/Users/zhanguowang/Desktop/project/gitee/agent\ demo/popertiesLauncher/target -jar springAgentDemo-0.0.1-SNAPSHOT.jar
-//java -Dloader.path=/Users/zhanguowang/Desktop/project/gitee/agent\ demo/popertiesLauncher/target -cp myjar.jar org.springframework.boot.loader.PropertiesLauncher
+//java -Dloader.path=/Users/zhanguowang/Desktop/project/gitee/agentdemo/popertiesLauncher/target -cp myjar.jar org.springframework.boot.loader.PropertiesLauncher
