@@ -24,7 +24,14 @@ DefaultListableBeanFactory 里的 preInstantiateSingletons {
     getMergedLocalBeanDefinition 创建 RootBeanDefinition，最终是调用 AbstractBeanDefinition 的构造函数，最终将meta信息抹除了
 }
 
-从根上来说，都是通过LangtchURLCL 加载的，只是说通过ASM的ClassVisitor读取的时候，meta属性读取到了anntion，但是通过CL加载的ClassType并不能直接读取到
+从根上来说，都是通过 LaunchedURLClassLoader 加载的，只是说通过ASM的ClassVisitor读取的时候，meta属性读取到了anntion，但是通过CL加载的ClassType并不能直接读取到
+## 问题进一步追溯
+最终发现是maven 的scope如果选择provided，则导致在 springAgentInject 这个包下没有spring的依赖，所以当我尝试将scope 恢复到 compile 的时候，确认在 目标的spring 程序生效。这主要原因有以下几点：
+1.spring app 会扫描加载到agent 注入的jar包，把这个jar包添加到对应的classpath下
+2.spring的 LaunchedURLClassLoader 加载 TestController class file的时候，会对里面的 org.springframework.web.bind.annotation.RequestMapping 符号引用进行替换为直接引用，这个时候加载 org.springframework.web.bind.annotation.RequestMapping 会由JVM（hotspot）委派给 LaunchedURLClassLoader 加载，这里目前现象是如果在 springAgentInject 中 打包了spring依赖，就可以正常进行解析，否则也不报错。这里我查看了spring 2.7 版本 org.springframework.boot.loader.LaunchedURLClassLoader的源码，发现 loadClass 的异常被吞掉了，没有进行任何处理。
+3.依据第2点，待验证：将spring 2.7进行本地打包，并进行 org.springframework.boot.loader.LaunchedURLClassLoader 的异常处理捕获（可能需要修改spring的maven 插件，并在本地加载自己处理过的maven插件，主要是使用 修改后项目的 spring-boot-loader-tools 依赖）
+PS：仍然不建议将spring的依赖打包在 springAgentInject 这种agent 项目中，会带来版本不一致，不好维护，jar包庞大等很多问题，并且之后agent开发会除了premain对应的class外，全部使用 自定义的 ClassLoader 加载，会保证在 spring app 侧 不可见agent的 所有依赖和类，所以直接将依赖打进去的方式，始终不是我所想要的解决方案
+
 ## 附加调试
 ### 启动添加参数配置
 ``` bat
