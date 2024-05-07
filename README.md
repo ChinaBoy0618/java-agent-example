@@ -69,8 +69,8 @@ DefaultListableBeanFactory 里的 preInstantiateSingletons {
 
 ```
 ## TODO
-下一步验证工作，只打包依赖的annotation class
-
+- <del >下一步验证工作，只打包依赖的annotation class </del>(不可行)
+- 屏蔽 spring app 的 cl 扫描（通过重命名class file 文件），创建自定义的agent ClassLoader，通过继承 目标类的ClassLoader，实现类加载
 PS：仍然不建议将spring的依赖打包在 springAgentInject 这种agent 项目中，会带来版本不一致，不好维护，jar包庞大等很多问题，并且之后agent开发会除了premain对应的class外，全部使用 自定义的 ClassLoader 加载，会保证在 spring app 侧 不可见agent的 所有依赖和类，所以直接将依赖打进去的方式，始终不是我所想要的解决方案
 
 ## 附加调试
