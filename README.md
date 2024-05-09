@@ -11,7 +11,9 @@
     ├── popertiesLauncher //验证spring -Dload.path 的依赖包
     └── springAgentInject //验证spring 注入的agent demo
 ```
-
+## 依赖版本
+- JDK1.8
+- spring 2.7.x
 ## 问题
 
 将扩展的jar包注入spring，实现spring 启动扫描扩展jar包和本身的fat jar内容
