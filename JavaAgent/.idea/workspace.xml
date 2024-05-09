@@ -6,8 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="3f71a6c6-3d3c-408e-a180-8043457c6429" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agent/MyAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agent/MyAgent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agent/classloading/CustomClassLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agent/classloading/CustomClassLoader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/test/java/CustomerClassLoaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/test/java/CustomerClassLoaderTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -167,7 +165,7 @@
       <workItem from="1714439689626" duration="21369000" />
       <workItem from="1714577277913" duration="8074000" />
       <workItem from="1714921401638" duration="2392000" />
-      <workItem from="1715043351633" duration="31053000" />
+      <workItem from="1715043351633" duration="31647000" />
     </task>
     <servers />
   </component>
