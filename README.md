@@ -171,7 +171,7 @@ public final class Class<T> implements java.io.Serializable,
 ```
 
 ```java
-//AnnotationParser 在JDK中有个类，是这个包下的
+//AnnotationParser 在JDK中有2个类，必须看这个包下的
 package sun.reflect.annotation;
 
 public class AnnotationParser {
