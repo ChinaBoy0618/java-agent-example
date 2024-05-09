@@ -3,6 +3,7 @@ package com.example.agent.classloading;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.security.AccessController;
@@ -16,24 +17,27 @@ import java.util.*;
  * @author wzg
  * @date 2024/5/7 13:34
  */
-public class CustomClassLoader extends URLClassLoader {
+public class SpringExternalClassLoader extends URLClassLoader {
     /**
      * 加载类文件的后缀
      */
-    private static final String PREFIX = ".declazz";
-    private static final String CLASS_EXTENSION = ".class";
+    private static final String SUFFIX = ".declazz";
+    private static final String CLASS_SUFFIX = ".class";
     private static final ProtectionDomain PROTECTION_DOMAIN;
+    private static final String JAR_PREFIX="jar:";
+    private static final String JAR_SUFFIX="!/";
+
 
     static {
         ClassLoader.registerAsParallelCapable();
 
         if (System.getSecurityManager() == null) {
-            PROTECTION_DOMAIN = CustomClassLoader.class.getProtectionDomain();
+            PROTECTION_DOMAIN = SpringExternalClassLoader.class.getProtectionDomain();
         } else {
             PROTECTION_DOMAIN = AccessController.doPrivileged(new PrivilegedAction<ProtectionDomain>() {
                 @Override
                 public ProtectionDomain run() {
-                    return CustomClassLoader.class.getProtectionDomain();
+                    return SpringExternalClassLoader.class.getProtectionDomain();
                 }
             });
         }
@@ -51,33 +55,47 @@ public class CustomClassLoader extends URLClassLoader {
      */
     private final String springClassPath;
     /**
-     * 扩展包的class path
-     */
-    private final String externalClassPath;
-    /**
      * 扩展包的jar 地址，测试先按照spring的写
      */
-    private final String externalJarPath;
-    /**
-     * 排除spring 的格式的url
-     */
-    private final String cleanExternalJarPath;
+    private final List<URL> externalJarPath;
 
     /**
-     * 仅支持 单个类文件的加载
-     *
-     * @param url
-     * @param parent
+     * Spring 扩展jar 包加载路径
+     * @param externalUrls 扩展jar包的加载路径
+     * @param parent  SpringExternalClassLoader的parent CL
+     * @param prefix 自定义的资源前缀（实现类似spring 的BOOT_INF/lib）
+     * @param springClassPath spring 的classpath路径，例如：示例项目的包名 com/example/agentdemo（Application类所在包名）
      */
-    public CustomClassLoader(URL[] externalUrls, ClassLoader parent, String prefix, String springClassPath, String externalClassPath, String externalJarPath) {
+    public SpringExternalClassLoader(URL[] externalUrls, ClassLoader parent, String prefix, String springClassPath) throws MalformedURLException{
         super(externalUrls, parent);
         this.customPrefix = prefix;
         this.springClassPath = springClassPath;
-        this.externalClassPath = externalClassPath;
-        this.externalJarPath = externalJarPath;
-        this.cleanExternalJarPath = isNotEmpty(this.externalJarPath) ? this.externalJarPath
-                .substring(0,this.externalJarPath.indexOf("!"))
-                .replace("jar:", "") : "";
+        this.externalJarPath=new ArrayList<>(getLength(externalUrls));
+        initExternalJarPath(externalUrls);
+    }
+
+    /**
+     * 通过  externalUrls 去 解析对应的地址,获取 扩展的jar包地址全路径
+     * @param externalUrls
+     */
+    private URL[] initExternalJarPath(URL[] externalUrls) throws MalformedURLException {
+        if(externalUrls!=null&&externalUrls.length>0){
+            for (URL url:externalUrls){
+                this.externalJarPath.add(new URL(JAR_PREFIX+url.toString()+JAR_SUFFIX));
+            }
+        }
+        return externalJarPath.toArray(new URL[0]);
+    }
+    private int getLength(URL[] externalUrls){
+         return externalUrls!=null?externalUrls.length:0;
+    }
+
+    /**
+     * 获取扩展jar包列表
+     * @return
+     */
+    public List<URL> getExternalJarPath(){
+        return externalJarPath;
     }
 
     @Override
@@ -118,7 +136,7 @@ public class CustomClassLoader extends URLClassLoader {
     public byte[] getShadedClassBytes(String name) throws ClassNotFoundException {
         //暂时去掉 customPrefix
 //        try (InputStream is = getPrivilegedResourceAsStream(customPrefix + name.replace('.', '/') + PREFIX)) {
-        try (InputStream is = getPrivilegedResourceAsStream(name.replace('.', '/') + PREFIX)) {
+        try (InputStream is = getPrivilegedResourceAsStream(name.replace('.', '/') + SUFFIX)) {
             if (is != null) {
                 ByteArrayOutputStream buffer = new ByteArrayOutputStream();
                 int n;
@@ -316,7 +334,10 @@ public class CustomClassLoader extends URLClassLoader {
         try {
             //spring 加载 classpath 资源
             List<URL> urls = Collections.list(oldSources);
-            urls.add(new URL(externalJarPath));
+            for (URL url:externalJarPath){
+                urls.add(url);
+            }
+
             return Collections.enumeration(urls);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -325,18 +346,18 @@ public class CustomClassLoader extends URLClassLoader {
     }
 
     private String getShadedResourceName(String name) {
-        if (name.contains(customPrefix) && name.endsWith(PREFIX)) {
+        if (name.contains(customPrefix) && name.endsWith(SUFFIX)) {
             return name;
-        } else if (name.endsWith(PREFIX)) {
-            return name.substring(0, name.length() - PREFIX.length()) + CLASS_EXTENSION;
+        } else if (name.endsWith(SUFFIX)) {
+            return name.substring(0, name.length() - SUFFIX.length()) + CLASS_SUFFIX;
         } else {
             return name;
         }
 //        if (name.startsWith(customPrefix)) {
 //            // already a lookup of the shaded form
 //            return name;
-//        } else if (name.endsWith(CLASS_EXTENSION)) {
-//            return customPrefix + name.substring(0, name.length() - CLASS_EXTENSION.length()) + PREFIX;
+//        } else if (name.endsWith(CLASS_SUFFIX)) {
+//            return customPrefix + name.substring(0, name.length() - CLASS_SUFFIX.length()) + PREFIX;
 //        }else if(name.endsWith(PREFIX)){
 //            return name;
 //        }

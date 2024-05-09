@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0ccc1b4a-ebcf-470a-9015-215c728ec7c2" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/doc/images/img.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/agentdemo/springAgentInject/src/main/java/com/example/agent/MyAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/agentdemo/springAgentInject/src/main/java/com/example/agent/MyAgent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/agentdemo/springAgentInject/src/main/java/com/example/agent/classloading/CustomClassLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/agentdemo/springAgentInject/src/main/java/com/example/agent/classloading/SpringExternalClassLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/agentdemo/springAgentInject/src/test/java/CustomerClassLoaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/agentdemo/springAgentInject/src/test/java/SpringExternalClassLoaderTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2gEGS58FeMvXjxnpOcE8vxZmX13" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0ccc1b4a-ebcf-470a-9015-215c728ec7c2" name="Default Changelist" comment="" />
+      <created>1715255321191</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1715255321191</updated>
+      <workItem from="1715255323701" duration="1706000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

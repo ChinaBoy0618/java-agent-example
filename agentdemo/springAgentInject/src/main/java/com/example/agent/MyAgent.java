@@ -1,9 +1,7 @@
 package com.example.agent;
 
-//import com.example.popertieslauncher.TestController;
-
-import com.example.agent.classloading.CustomClassLoader;
 import com.example.agent.classloading.ShadeClassLoader;
+import com.example.agent.classloading.SpringExternalClassLoader;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.asm.Advice;
 import net.bytebuddy.description.type.TypeDescription;
@@ -14,9 +12,7 @@ import java.io.File;
 import java.lang.instrument.Instrumentation;
 import java.lang.reflect.Method;
 import java.net.URL;
-import java.net.URLClassLoader;
 import java.security.ProtectionDomain;
-import java.util.*;
 
 import static net.bytebuddy.matcher.ElementMatchers.*;
 
@@ -74,13 +70,11 @@ public class MyAgent {
             System.out.println(method + " enter Loader class");
             try {
                 //TODO 将这里的参数变为配置文件，或者启动 agent 参数
-                CustomClassLoader cl = new CustomClassLoader(
+                SpringExternalClassLoader cl = new SpringExternalClassLoader(
                         new URL[]{new File("/Users/zhanguowang/Documents/popertiesLauncher-0.0.1-SNAPSHOT.jar").toURL()}
                         , MyAgent.classLoader
                         , "template"
-                        , "com/example/agentdemo/"
-                        , "com/example/popertieslauncher/"
-                        , "jar:file:/Users/zhanguowang/Documents/popertiesLauncher-0.0.1-SNAPSHOT.jar!/com/example/popertieslauncher/");
+                        , "com/example/agentdemo/");
 
                 Thread.currentThread().setContextClassLoader(new ShadeClassLoader(cl));
                 System.out.println(method + " set thread class loader:" + cl);
