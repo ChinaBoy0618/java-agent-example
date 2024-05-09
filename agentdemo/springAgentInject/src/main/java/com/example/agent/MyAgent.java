@@ -288,7 +288,10 @@ public class MyAgent {
 //
 //                String path = protectionDomain.getCodeSource().getLocation().toURI().getSchemeSpecificPart();
 
-                CustomClassLoader cl = new CustomClassLoader(new File("/Users/zhanguowang/Desktop/project/github/java-agent-example/agent/springAgentInject/target/springAgentInject-1-SNAPSHOT.jar").toURL(), MyAgent.classLoader, "template","com/example/agentdemo/","com/example/popertieslauncher/","jar:file:/Users/zhanguowang/Documents/popertiesLauncher-0.0.1-SNAPSHOT.jar!/com/example/popertieslauncher/");
+                CustomClassLoader cl = new CustomClassLoader(new URL[]{
+//                new File("/Users/zhanguowang/Desktop/project/github/java-agent-example/agent/springAgentInject/target/springAgentInject-1-SNAPSHOT.jar").toURL(),
+                        new File("/Users/zhanguowang/Documents/popertiesLauncher-0.0.1-SNAPSHOT.jar").toURL()
+                }, MyAgent.classLoader, "template","com/example/agentdemo/","com/example/popertieslauncher/","jar:file:/Users/zhanguowang/Documents/popertiesLauncher-0.0.1-SNAPSHOT.jar!/com/example/popertieslauncher/");
                 Class<?> t = cl.loadClass("com.example.agent.template.TestController");
                 byte[] clazz = cl.getShadedClassBytes("com.example.agent.template.TestController");
                 System.out.println(method + " enter loaded class:" + t);

@@ -70,13 +70,13 @@ public class AgentDemoApplication implements ApplicationContextAware, Applicatio
 //        org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext
 //        AbstractHandlerMethodMapping
 //        ScannedGenericBeanDefinition
-
-        System.out.println("BeanFactoryUtils#beanNamesForTypeIncludingAncestors>>>>>>");
-        String[] names = BeanFactoryUtils.beanNamesForTypeIncludingAncestors(applicationContext, Object.class);
-        print(applicationContext, names);
-        System.out.println("ApplicationContext#getBeanNamesForType>>>>>>");
-        names = applicationContext.getBeanNamesForType(Object.class);
-        print(applicationContext, names);
+//
+//        System.out.println("BeanFactoryUtils#beanNamesForTypeIncludingAncestors>>>>>>");
+//        String[] names = BeanFactoryUtils.beanNamesForTypeIncludingAncestors(applicationContext, Object.class);
+//        print(applicationContext, names);
+//        System.out.println("ApplicationContext#getBeanNamesForType>>>>>>");
+//        names = applicationContext.getBeanNamesForType(Object.class);
+//        print(applicationContext, names);
 
     }
 
@@ -122,8 +122,8 @@ public class AgentDemoApplication implements ApplicationContextAware, Applicatio
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        System.out.println("context refreshed event");
-        ApplicationContext _context = event.getApplicationContext();
+//        System.out.println("context refreshed event");
+//        ApplicationContext _context = event.getApplicationContext();
     }
 //java -javaagent:/Users/zhanguowang/Desktop/project/github/java-agent-example/agentdemo/springAgentInject/target/springAgentInject-1-SNAPSHOT.jar -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=9999 -jar springAgentDemo-0.0.1-SNAPSHOT.jar
 }

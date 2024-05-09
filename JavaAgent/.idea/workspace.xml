@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3f71a6c6-3d3c-408e-a180-8043457c6429" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../agentdemo/popertiesLauncher/src/main/java/com/example/popertieslauncher/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../agentdemo/popertiesLauncher/src/main/java/com/example/popertieslauncher/TestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../agentdemo/popertiesLauncher/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agentdemo/MyAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agentdemo/MyAgent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agentdemo/MyInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agentdemo/MyInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agentdemo/template/TestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agentdemo/template/TestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agentdemo/utils/ClassInjector.java" beforeDir="false" afterPath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agentdemo/utils/ClassInjector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agent/MyAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agent/MyAgent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agent/classloading/CustomClassLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agent/classloading/CustomClassLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/test/java/CustomerClassLoaderTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/test/java/CustomerClassLoaderTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,6 +97,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="agent debug" type="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -155,7 +165,9 @@
       <workItem from="1714387971003" duration="1457000" />
       <workItem from="1714438874897" duration="200000" />
       <workItem from="1714439689626" duration="21369000" />
-      <workItem from="1714577277913" duration="5312000" />
+      <workItem from="1714577277913" duration="8074000" />
+      <workItem from="1714921401638" duration="2392000" />
+      <workItem from="1715043351633" duration="31053000" />
     </task>
     <servers />
   </component>
@@ -191,29 +203,46 @@
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/springAgentDemo/src/main/java/com/example/agentdemo/AgentDemoApplication.java</url>
-          <line>36</line>
-          <option name="timeStamp" value="60" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.3.29/spring-context-5.3.29-sources.jar!/org/springframework/context/annotation/ClassPathBeanDefinitionScanner.java</url>
-          <line>272</line>
-          <option name="timeStamp" value="63" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.3.29/spring-context-5.3.29-sources.jar!/org/springframework/context/annotation/ClassPathBeanDefinitionScanner.java</url>
-          <line>275</line>
-          <option name="timeStamp" value="70" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.3.29/spring-context-5.3.29-sources.jar!/org/springframework/context/annotation/ClassPathBeanDefinitionScanner.java</url>
-          <line>276</line>
-          <option name="timeStamp" value="72" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+          <condition expression="beanName.equals(&quot;testController&quot;)" language="JAVA" />
           <url>jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/5.3.29/spring-beans-5.3.29-sources.jar!/org/springframework/beans/factory/support/DefaultListableBeanFactory.java</url>
           <line>935</line>
           <option name="timeStamp" value="82" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.3.29/spring-core-5.3.29-sources.jar!/org/springframework/core/io/support/PathMatchingResourcePatternResolver.java</url>
+          <line>370</line>
+          <option name="timeStamp" value="140" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.3.29/spring-context-5.3.29-sources.jar!/org/springframework/context/annotation/ClassPathBeanDefinitionScanner.java</url>
+          <line>274</line>
+          <option name="timeStamp" value="173" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <condition expression="className.contains(&quot;test&quot;)" language="JAVA" />
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.3.29/spring-core-5.3.29-sources.jar!/org/springframework/core/type/classreading/SimpleMetadataReaderFactory.java</url>
+          <line>80</line>
+          <option name="timeStamp" value="176" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.3.29/spring-core-5.3.29-sources.jar!/org/springframework/core/io/ClassPathResource.java</url>
+          <line>196</line>
+          <option name="timeStamp" value="180" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.3.29/spring-core-5.3.29-sources.jar!/org/springframework/core/type/classreading/SimpleMetadataReader.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="182" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.3.29/spring-core-5.3.29-sources.jar!/org/springframework/asm/ClassReader.java</url>
+          <line>447</line>
+          <option name="timeStamp" value="186" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.3.29/spring-core-5.3.29-sources.jar!/org/springframework/asm/ClassReader.java</url>
+          <line>316</line>
+          <option name="timeStamp" value="188" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

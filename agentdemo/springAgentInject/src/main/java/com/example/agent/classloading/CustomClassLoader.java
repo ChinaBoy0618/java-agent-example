@@ -69,8 +69,8 @@ public class CustomClassLoader extends URLClassLoader {
      * @param url
      * @param parent
      */
-    public CustomClassLoader(URL url, ClassLoader parent, String prefix, String springClassPath, String externalClassPath, String externalJarPath) {
-        super(new URL[]{url}, parent);
+    public CustomClassLoader(URL[] externalUrls, ClassLoader parent, String prefix, String springClassPath, String externalClassPath, String externalJarPath) {
+        super(externalUrls, parent);
         this.customPrefix = prefix;
         this.springClassPath = springClassPath;
         this.externalClassPath = externalClassPath;
@@ -169,16 +169,8 @@ public class CustomClassLoader extends URLClassLoader {
         if (locallyNonAvailableResources.get().contains(name)) {
             return null;
         }
-        if (isNotEmpty(name) && name.contains(externalClassPath)) {
-            System.out.println(this + "|name:" + name + "|findResource");
-            //todo 从扩展jar包扫描，测试先写死
-            try {
-                return new URL(this.cleanExternalJarPath);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                return findResourceInternal(getShadedResourceName(name));
-            }
-        } else if (System.getSecurityManager() == null) {
+
+        if (System.getSecurityManager() == null) {
             return findResourceInternal(getShadedResourceName(name));
         }
 
@@ -191,7 +183,6 @@ public class CustomClassLoader extends URLClassLoader {
                 return findResourceInternal(getShadedResourceName(name));
             }
         });
-
     }
 
     private URL findResourceInternal(String name) {
