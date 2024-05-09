@@ -1,1 +1,2 @@
+#需要cd到 springAgentDemo 项目的target 目录下，然后把jar包执行路径改为自己的本地路径
 java -javaagent:/Users/zhanguowang/Desktop/project/github/java-agent-example/agentdemo/springAgentInject/target/springAgentInject-1-SNAPSHOT.jar -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=9999 -jar springAgentDemo-0.0.1-SNAPSHOT.jar
