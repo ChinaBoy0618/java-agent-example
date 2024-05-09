@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3f71a6c6-3d3c-408e-a180-8043457c6429" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agent/MyAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agent/MyAgent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agent/classloading/ShadeClassLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agent/classloading/ShadedClassLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agent/classloading/SpringExternalClassLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agent/classloading/SpringExternalClassLoader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +165,7 @@
       <workItem from="1714577277913" duration="8074000" />
       <workItem from="1714921401638" duration="2392000" />
       <workItem from="1715043351633" duration="31901000" />
-      <workItem from="1715259240211" duration="1417000" />
+      <workItem from="1715259240211" duration="1942000" />
     </task>
     <servers />
   </component>
@@ -211,11 +210,6 @@
           <url>jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.3.29/spring-core-5.3.29-sources.jar!/org/springframework/core/io/support/PathMatchingResourcePatternResolver.java</url>
           <line>370</line>
           <option name="timeStamp" value="140" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/5.3.29/spring-context-5.3.29-sources.jar!/org/springframework/context/annotation/ClassPathBeanDefinitionScanner.java</url>
-          <line>274</line>
-          <option name="timeStamp" value="173" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <condition expression="className.contains(&quot;test&quot;)" language="JAVA" />

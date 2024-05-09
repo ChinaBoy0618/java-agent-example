@@ -12,8 +12,8 @@ import java.security.ProtectionDomain;
 import java.util.*;
 
 /**
- * 测试使用自定义ClassLoader，只进行测试spring 类的 annotation加载使用
  *
+ * 支持在 spring class path 扫描的时刻动态加载额外的class path jar包的CL
  * @author wzg
  * @date 2024/5/7 13:34
  */

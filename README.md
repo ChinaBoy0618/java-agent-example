@@ -1,4 +1,5 @@
 # 目录说明
+
 ``` markdown
 - .
 ├── JavaAgent
@@ -12,55 +13,20 @@
 ```
 
 ## 问题
-目前agent包中如果定义spring的事件或者spring注解，会被spring所在的app 扫描到，但是并不会对里面注解进行代理类生成。原因还未深究
-## 问题原因
-在
-ClassPathBeanDefinitionScanner doScan扫描出来 BeanDefinition{
-    registerBeanDefinition(definitionHolder,DefaultListableBeanFactory registry)
-}
 
+将扩展的jar包注入spring，实现spring 启动扫描扩展jar包和本身的fat jar内容
 
-DefaultListableBeanFactory 里的 preInstantiateSingletons {
-    getMergedLocalBeanDefinition 创建 RootBeanDefinition，最终是调用 AbstractBeanDefinition 的构造函数，最终将meta信息抹除了
-}
+### 以下为寻找解决方案过程中值得记录的内容
 
-从根上来说，都是通过 LaunchedURLClassLoader 加载的，只是说通过ASM的ClassVisitor读取的时候，meta属性读取到了anntion，但是通过CL加载的ClassType并不能直接读取到
-## 问题进一步追溯
-最终发现是maven 的scope如果选择provided，则导致在 springAgentInject 这个包下没有spring的依赖，所以当我尝试将scope 恢复到 compile 的时候，确认在 目标的spring 程序生效。这主要原因有以下几点：
-- 1.spring app 会扫描加载到agent 注入的jar包，把这个jar包添加到对应的classpath下
-- 2.spring的 LaunchedURLClassLoader 加载 TestController class file的时候，会对里面的 org.springframework.web.bind.annotation.RequestMapping 符号引用进行替换为直接引用（我对比了不同打包方式class file 里面的符号引用，发现没有什么区别：使用 hexdump -C 进行16进制class file 的查看），这个时候加载 org.springframework.web.bind.annotation.RequestMapping 会由JVM（hotspot）委派给 LaunchedURLClassLoader 加载，这里目前现象是如果在 springAgentInject 中 打包了spring依赖，就可以正常进行解析，否则也不报错。这里我查看了spring 2.7 版本 org.springframework.boot.loader.LaunchedURLClassLoader的源码，发现 loadClass 的异常被吞掉了，没有进行任何处理。
-- 3.依据第2点，待验证：将spring 2.7进行本地打包，并进行 org.springframework.boot.loader.LaunchedURLClassLoader 的异常处理捕获
-- 4.第3点已经验证，为 sun.reflect.annotation.AnnotationParser#parseAnnotation2 报错，异常为 [TypeNotPresentException](https://docs.oracle.com/javase%2F8%2Fdocs%2Fapi%2F%2F/java/lang/TypeNotPresentException.html)
+问题：将jar包的URL直接注入到 LaunchedURLClassLoader 的方式，发现bean 正常生成，但是注解不生效，不mapping，以下为追溯的历程
+原因：通过ASM的ClassVisitor读取的时候，meta属性读取到了anntion，但是通过CL加载的ClassType并不能直接读取到，并且不报错，具体吞掉异常的位置为sun.reflect.annotation.AnnotationParser#parseAnnotation2
+报错，异常为 [TypeNotPresentException](https://docs.oracle.com/javase%2F8%2Fdocs%2Fapi%2F%2F/java/lang/TypeNotPresentException.html)
+追溯类：RequestMappingHandlerMapping->AnnotatedElementUtils->MergedAnnotations->TypeMappedAnnotations->AnnotationsScanner->
+Class->AnnotationParser
 
-``` java 
-ClassPathResource extends InputStreamSource{
-	@Override
-	public InputStream getInputStream() throws IOException {
-		InputStream is;
-		if (this.clazz != null) {
-			is = this.clazz.getResourceAsStream(this.path);
-		}
-		else if (this.classLoader != null) {
-		    //这里是最关键的点，所以我们必须在 SpringExternalClassLoader 和 ShadedClassLoader 中实现 getResourceAsStream
-			is = this.classLoader.getResourceAsStream(this.path);
-		}
-		else {
-			is = ClassLoader.getSystemResourceAsStream(this.path);
-		}
-		if (is == null) {
-			throw new FileNotFoundException(getDescription() + " cannot be opened because it does not exist");
-		}
-		return is;
-	}
-}
-```
-```text
-将jar包的URL直接注入到 LaunchedURLClassLoader 的方式，发现bean 正常生成，但是注解不生效，不mapping，以下为追溯的历程
-RequestMappingHandlerMapping->AnnotatedElementUtils->MergedAnnotations->TypeMappedAnnotations->AnnotationsScanner->Class->AnnotationParser
 PS:JDK的代码建议看JDK源码，反编译没有注释，很痛苦
-```
 
-``` java
+```java
 public class RequestMappingHandlerMapping extends RequestMappingInfoHandlerMapping
         implements MatchableHandlerMapping, EmbeddedValueResolverAware {
 	/**
@@ -75,6 +41,7 @@ public class RequestMappingHandlerMapping extends RequestMappingInfoHandlerMappi
 	}
 }
 ```
+
 ```java
 final class TypeMappedAnnotations implements MergedAnnotations {
     static MergedAnnotations from(AnnotatedElement element, SearchStrategy searchStrategy,
@@ -108,8 +75,7 @@ abstract class AnnotationsScanner {
         Annotation[] annotations = declaredAnnotationCache.get(source);
         if (annotations != null) {
             cached = true;
-        }
-        else {
+        } else {
             //这句代码是关键
             annotations = source.getDeclaredAnnotations();
             if (annotations.length != 0) {
@@ -119,8 +85,7 @@ abstract class AnnotationsScanner {
                     if (isIgnorable(annotation.annotationType()) ||
                             !AttributeMethods.forAnnotationType(annotation.annotationType()).isValid(annotation)) {
                         annotations[i] = null;
-                    }
-                    else {
+                    } else {
                         allIgnored = false;
                     }
                 }
@@ -138,12 +103,13 @@ abstract class AnnotationsScanner {
     }
 }
 ```
+
 ```java
 public final class Class<T> implements java.io.Serializable,
-                              GenericDeclaration,
-                              Type,
-                              AnnotatedElement {
-    
+        GenericDeclaration,
+        Type,
+        AnnotatedElement {
+
     private AnnotationData annotationData() {
         while (true) { // retry loop
             AnnotationData annotationData = this.annotationData;
@@ -161,6 +127,7 @@ public final class Class<T> implements java.io.Serializable,
             }
         }
     }
+
     private AnnotationData createAnnotationData(int classRedefinedCount) {
         Map<Class<? extends Annotation>, Annotation> declaredAnnotations =
                 AnnotationParser.parseAnnotations(getRawAnnotations(), getConstantPool(), this);
@@ -192,15 +159,17 @@ public final class Class<T> implements java.io.Serializable,
         }
         return new AnnotationData(annotations, declaredAnnotations, classRedefinedCount);
     }
+
     /**
      * @since 1.5
      */
-    public Annotation[] getDeclaredAnnotations()  {
+    public Annotation[] getDeclaredAnnotations() {
         return AnnotationParser.toArray(annotationData().declaredAnnotations);
     }
-    
+
 }
 ```
+
 ```java
 //AnnotationParser 在JDK中有个类，是这个包下的
 package sun.reflect.annotation;
@@ -214,9 +183,11 @@ public class AnnotationParser {
      * it is needed.
      */
     private static final Annotation[] EMPTY_ANNOTATION_ARRAY = new Annotation[0];
+
     public static Annotation[] toArray(Map<Class<? extends Annotation>, Annotation> annotations) {
         return annotations.values().toArray(EMPTY_ANNOTATION_ARRAY);
     }
+
     /**
      * Parses the annotation at the current position in the specified
      * byte buffer, resolving constant references in the specified constant
@@ -245,6 +216,7 @@ public class AnnotationParser {
                                       boolean exceptionOnMissingAnnotationClass) {
         return parseAnnotation2(buf, constPool, container, exceptionOnMissingAnnotationClass, null);
     }
+
     private static Map<Class<? extends Annotation>, Annotation> parseAnnotations2(
             byte[] rawAnnotations,
             ConstantPool constPool,
@@ -261,7 +233,7 @@ public class AnnotationParser {
                 if (AnnotationType.getInstance(klass).retention() == RetentionPolicy.RUNTIME &&
                         result.put(klass, a) != null) {
                     throw new AnnotationFormatError(
-                            "Duplicate annotation for class: "+klass+": " + a);
+                            "Duplicate annotation for class: " + klass + ": " + a);
                 }
             }
         }
@@ -269,19 +241,226 @@ public class AnnotationParser {
     }
 }
 ```
+
 ## 解决方案
-通过创建自定义SpringExternalClassLoader和ShadedClassLoader，覆盖当前线程的上下文的spring 的 LaunchedURLClassLoader，解决不能加载引入包的问题；类的层级如下：
+
+通过创建自定义 SpringExternalClassLoader和ShadedClassLoader，覆盖当前线程的上下文的spring 的 LaunchedURLClassLoader，解决不能加载引入包的问题；类的层级如下：
 ![类加载器层级](doc/images/img.png)
 
+### 为什么要实现两个ClassLoader？
+追溯类：ClassPathBeanDefinitionScanner->ClassPathScanningCandidateComponentProvider->PathMatchingResourcePatternResolver->ClassLoader
+```java
+public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateComponentProvider {
+/**
+	 * Perform a scan within the specified base packages,
+	 * returning the registered bean definitions.
+	 * <p>This method does <i>not</i> register an annotation config processor
+	 * but rather leaves this up to the caller.
+	 * @param basePackages the packages to check for annotated classes
+	 * @return set of beans registered if any for tooling registration purposes (never {@code null})
+	 */
+	protected Set<BeanDefinitionHolder> doScan(String... basePackages) {
+		Assert.notEmpty(basePackages, "At least one base package must be specified");
+		Set<BeanDefinitionHolder> beanDefinitions = new LinkedHashSet<>();
+		for (String basePackage : basePackages) {
+			Set<BeanDefinition> candidates = findCandidateComponents(basePackage);
+			for (BeanDefinition candidate : candidates) {
+				ScopeMetadata scopeMetadata = this.scopeMetadataResolver.resolveScopeMetadata(candidate);
+				candidate.setScope(scopeMetadata.getScopeName());
+				String beanName = this.beanNameGenerator.generateBeanName(candidate, this.registry);
+				if (candidate instanceof AbstractBeanDefinition) {
+					postProcessBeanDefinition((AbstractBeanDefinition) candidate, beanName);
+				}
+				if (candidate instanceof AnnotatedBeanDefinition) {
+					AnnotationConfigUtils.processCommonDefinitionAnnotations((AnnotatedBeanDefinition) candidate);
+				}
+				if (checkCandidate(beanName, candidate)) {
+					BeanDefinitionHolder definitionHolder = new BeanDefinitionHolder(candidate, beanName);
+					definitionHolder =
+							AnnotationConfigUtils.applyScopedProxyMode(scopeMetadata, definitionHolder, this.registry);
+					beanDefinitions.add(definitionHolder);
+					registerBeanDefinition(definitionHolder, this.registry);
+				}
+			}
+		}
+		return beanDefinitions;
+	}
+}
+```
+```java
+public class ClassPathScanningCandidateComponentProvider implements EnvironmentCapable, ResourceLoaderAware {
+    private Set<BeanDefinition> scanCandidateComponents(String basePackage) {
+        Set<BeanDefinition> candidates = new LinkedHashSet<>();
+        try {
+            String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX +
+                    resolveBasePackage(basePackage) + '/' + this.resourcePattern;
+            //这里是关键，获取所有的资源
+            Resource[] resources = getResourcePatternResolver().getResources(packageSearchPath);
+            boolean traceEnabled = logger.isTraceEnabled();
+            boolean debugEnabled = logger.isDebugEnabled();
+            for (Resource resource : resources) {
+                //do something
+            }
+        } catch (IOException ex) {
+            throw new BeanDefinitionStoreException("I/O failure during classpath scanning", ex);
+        }
+        return candidates;
+    }
+}
+```
+```java
+public class PathMatchingResourcePatternResolver implements ResourcePatternResolver {
+    @Override
+    public Resource[] getResources(String locationPattern) throws IOException {
+        Assert.notNull(locationPattern, "Location pattern must not be null");
+        if (locationPattern.startsWith(CLASSPATH_ALL_URL_PREFIX)) {
+            // a class path resource (multiple resources for same name possible)
+            if (getPathMatcher().isPattern(locationPattern.substring(CLASSPATH_ALL_URL_PREFIX.length()))) {
+                // a class path resource pattern；这里执行
+                return findPathMatchingResources(locationPattern);
+            } else {
+                // all class path resources with the given name
+                return findAllClassPathResources(locationPattern.substring(CLASSPATH_ALL_URL_PREFIX.length()));
+            }
+        } else {
+            // Generally only look for a pattern after a prefix here,
+            // and on Tomcat only after the "*/" separator for its "war:" protocol.
+            int prefixEnd = (locationPattern.startsWith("war:") ? locationPattern.indexOf("*/") + 1 :
+                    locationPattern.indexOf(':') + 1);
+            if (getPathMatcher().isPattern(locationPattern.substring(prefixEnd))) {
+                // a file pattern
+                return findPathMatchingResources(locationPattern);
+            } else {
+                // a single resource with the given name
+                return new Resource[]{getResourceLoader().getResource(locationPattern)};
+            }
+        }
+    }
+    protected Resource[] findAllClassPathResources(String location) throws IOException {
+        String path = location;
+        if (path.startsWith("/")) {
+            path = path.substring(1);
+        }
+        Set<Resource> result = doFindAllClassPathResources(path);
+        if (logger.isTraceEnabled()) {
+            logger.trace("Resolved classpath location [" + location + "] to resources " + result);
+        }
+        return result.toArray(new Resource[0]);
+    }
 
+    protected Set<Resource> doFindAllClassPathResources(String path) throws IOException {
+        Set<Resource> result = new LinkedHashSet<>(16);
+        ClassLoader cl = getClassLoader();
+        //最终是调用了 cl.getResources(path)
+        Enumeration<URL> resourceUrls = (cl != null ? cl.getResources(path) : ClassLoader.getSystemResources(path));
+        while (resourceUrls.hasMoreElements()) {
+            URL url = resourceUrls.nextElement();
+            result.add(convertClassLoaderURL(url));
+        }
+        if (!StringUtils.hasLength(path)) {
+            // The above result is likely to be incomplete, i.e. only containing file system references.
+            // We need to have pointers to each of the jar files on the classpath as well...
+            addAllClassLoaderJarRoots(cl, result);
+        }
+        return result;
+    }
+}
+```
+```java
+public abstract class ClassLoader {
+    public Enumeration<URL> getResources(String name) throws IOException {
+        @SuppressWarnings("unchecked")
+        Enumeration<URL>[] tmp = (Enumeration<URL>[]) new Enumeration<?>[2];
+        if (parent != null) {
+            //这条语句很关键
+            tmp[0] = parent.getResources(name);
+        } else {
+            tmp[0] = getBootstrapResources(name);
+        }
+        tmp[1] = findResources(name);
+
+        return new CompoundEnumeration<>(tmp);
+    }
+}
+```
+```java
+/**
+ *
+ * 支持在 spring class path 扫描的时刻动态加载额外的class path jar包的CL
+ * @author wzg
+ * @date 2024/5/7 13:34
+ */
+public class SpringExternalClassLoader extends URLClassLoader {
+    @Override
+    public Enumeration<URL> getResources(String name) throws IOException {
+        System.out.println(this + "|getResources enter");
+        // look locally first
+        Enumeration<URL> shadedResources = findResources(name);
+        if (shadedResources.hasMoreElements()) {
+            //这里写入扩展的jar包
+            if (isNotEmpty(name) && name.equals(springClassPath)) {
+                return setClassLocator(name, shadedResources);
+            }
+            return shadedResources;
+        }
+        // if not found locally, calling super's lookup, which does parent first and then local, so marking as not required for local lookup
+        Set<String> locallyNonAvailableResources = this.locallyNonAvailableResources.get();
+        try {
+            locallyNonAvailableResources.add(name);
+            //这里写入扩展的jar包
+            if (isNotEmpty(name) && name.equals(springClassPath)) {
+                System.out.println(this + "|name:" + name + "|setClassLocator");
+                return setClassLocator(name, this.getParent().getResources(name));
+            } else {
+                //LaunchedURLClassLoader 获取
+//                System.out.println(this+"|name:"+name+"|getParent:"+this.getParent());
+                return this.getParent().getResources(name);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return ClassLoader.getSystemClassLoader().getResources(name);
+        } finally {
+            locallyNonAvailableResources.remove(name);
+        }
+    }
+}
+```
+
+### SpringExternalClassLoader和ShadedClassLoader 为什么要实现 getResourceAsStream?
+
+```java
+class ClassPathResource extends InputStreamSource {
+    @Override
+    public InputStream getInputStream() throws IOException {
+        InputStream is;
+        if (this.clazz != null) {
+            is = this.clazz.getResourceAsStream(this.path);
+        } else if (this.classLoader != null) {
+            //这里是最关键的点，所以我们必须在 SpringExternalClassLoader 和 ShadedClassLoader 中实现 getResourceAsStream
+            is = this.classLoader.getResourceAsStream(this.path);
+        } else {
+            is = ClassLoader.getSystemResourceAsStream(this.path);
+        }
+        if (is == null) {
+            throw new FileNotFoundException(getDescription() + " cannot be opened because it does not exist");
+        }
+        return is;
+    }
+}
+```
+### 资源加载顺序
+资源首先在SpringExternalClassLoader 进行加载，如果没有资源，则去 parent CL加载。
 ## 附加调试
+
 ### 启动添加参数配置
+
 ``` bat
 java -javaagent:/Users/zhanguowang/Desktop/project/github/java-agent-example/agentdemo/springAgentInject/target/springAgentInject-1-SNAPSHOT.jar -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=9999 -jar springAgentDemo-0.0.1-SNAPSHOT.jar
 ```
+PS：本地调试地址换为自己的地址；也可以见 run.sh
 ### idea 增加远程调试
+
 host：localhost 端口使用9999
-## 启动脚本
--run.sh
+
 
 
