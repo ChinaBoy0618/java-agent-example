@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3f71a6c6-3d3c-408e-a180-8043457c6429" name="Default Changelist" comment="" />
+    <list default="true" id="3f71a6c6-3d3c-408e-a180-8043457c6429" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agent/MyAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agent/MyAgent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agent/classloading/ShadeClassLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../agentdemo/springAgentInject/src/main/java/com/example/agent/classloading/ShadedClassLoader.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -93,15 +97,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -164,6 +166,7 @@
       <workItem from="1714577277913" duration="8074000" />
       <workItem from="1714921401638" duration="2392000" />
       <workItem from="1715043351633" duration="31901000" />
+      <workItem from="1715259240211" duration="1417000" />
     </task>
     <servers />
   </component>
@@ -224,11 +227,6 @@
           <url>jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.3.29/spring-core-5.3.29-sources.jar!/org/springframework/core/io/ClassPathResource.java</url>
           <line>196</line>
           <option name="timeStamp" value="180" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.3.29/spring-core-5.3.29-sources.jar!/org/springframework/core/type/classreading/SimpleMetadataReader.java</url>
-          <line>47</line>
-          <option name="timeStamp" value="182" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/5.3.29/spring-core-5.3.29-sources.jar!/org/springframework/asm/ClassReader.java</url>

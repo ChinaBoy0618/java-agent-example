@@ -10,8 +10,8 @@ import java.util.Collections;
  * 为了解决 spring 框架底层 getResource 问题，再加一层CL，作为 {@link ClassLoader}
  * 类中的 getResource 调用的解决方案
  */
-public class ShadeClassLoader extends URLClassLoader {
-    public ShadeClassLoader(ClassLoader parent) {
+public class ShadedClassLoader extends URLClassLoader {
+    public ShadedClassLoader(ClassLoader parent) {
         super(new URL[]{}, parent);
     }
 

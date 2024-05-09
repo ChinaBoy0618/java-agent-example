@@ -1,6 +1,6 @@
 package com.example.agent;
 
-import com.example.agent.classloading.ShadeClassLoader;
+import com.example.agent.classloading.ShadedClassLoader;
 import com.example.agent.classloading.SpringExternalClassLoader;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.asm.Advice;
@@ -76,7 +76,7 @@ public class MyAgent {
                         , "template"
                         , "com/example/agentdemo/");
 
-                Thread.currentThread().setContextClassLoader(new ShadeClassLoader(cl));
+                Thread.currentThread().setContextClassLoader(new ShadedClassLoader(cl));
                 System.out.println(method + " set thread class loader:" + cl);
             } catch (Exception ex) {
                 ex.printStackTrace();
