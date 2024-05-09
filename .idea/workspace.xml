@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="0ccc1b4a-ebcf-470a-9015-215c728ec7c2" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/agentdemo/springAgentInject/src/main/java/com/example/agent/classloading/SpringExternalClassLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/agentdemo/springAgentInject/src/main/java/com/example/agent/classloading/SpringExternalClassLoader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +46,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1715255321191</updated>
-      <workItem from="1715255323701" duration="4995000" />
+      <workItem from="1715255323701" duration="5198000" />
     </task>
     <servers />
   </component>

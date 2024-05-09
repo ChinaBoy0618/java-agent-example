@@ -245,6 +245,7 @@ public class AnnotationParser {
 ## 解决方案
 
 通过创建自定义 SpringExternalClassLoader和ShadedClassLoader，覆盖当前线程的上下文的spring 的 LaunchedURLClassLoader，解决不能加载引入包的问题；类的层级如下：
+
 ![类加载器层级](doc/images/img.png)
 
 ### 为什么要实现两个ClassLoader？
