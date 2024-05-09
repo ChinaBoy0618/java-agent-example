@@ -46,8 +46,8 @@
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <manifestEntries>
-                                        <Premain-Class>com.example.agentdemo.MyAgent</Premain-Class>
-                                        <Agent-Class>com.example.agentdemo.MyAgent</Agent-Class>
+                                        <Premain-Class>com.example.agent.MyAgent</Premain-Class>
+                                        <Agent-Class>com.example.agent.MyAgent</Agent-Class>
                                         <!--                                        <SCM-Revision>${git.commit.id.abbrev}</SCM-Revision>-->
                                         <Can-Redefine-Classes>true</Can-Redefine-Classes>
                                         <Can-Retransform-Classes>true</Can-Retransform-Classes>
@@ -73,8 +73,8 @@
             <!--                    <archive>-->
             <!--                        <manifestEntries>-->
             <!--                            // 指定premain()的所在方法-->
-            <!--                            <Agent-CLass>com.example.agentdemo.MyAgent</Agent-CLass>-->
-            <!--                            <Premain-Class>com.example.agentdemo.MyAgent</Premain-Class>-->
+            <!--                            <Agent-CLass>com.example.agentgent</Agent-CLass>-->
+            <!--                            <Premain-Class>com.example.agentgent</Premain-Class>-->
             <!--                            <Can-Redefine-Classes>true</Can-Redefine-Classes>-->
             <!--                            <Can-Retransform-Classes>true</Can-Retransform-Classes>-->
             <!--                        </manifestEntries>-->

@@ -14,6 +14,7 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <version.cucumber>5.4.0</version.cucumber>
     </properties>
     <dependencies>
         <dependency>
@@ -22,7 +23,19 @@
             <version>2.7.14</version>
             <scope>provided</scope>
         </dependency>
-<!--        <dependency>-->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>${version.cucumber}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+        <!--        <dependency>-->
 <!--            <groupId>com.example</groupId>-->
 <!--            <artifactId>popertiesLauncher</artifactId>-->
 <!--            <version>0.0.1-SNAPSHOT</version>-->
@@ -58,8 +71,8 @@
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <manifestEntries>
-                                        <Premain-Class>com.example.agentdemo.MyAgent</Premain-Class>
-                                        <Agent-Class>com.example.agentdemo.MyAgent</Agent-Class>
+                                        <Premain-Class>com.example.agent.MyAgent</Premain-Class>
+                                        <Agent-Class>com.example.agent.MyAgent</Agent-Class>
                                         <!--                                        <SCM-Revision>${git.commit.id.abbrev}</SCM-Revision>-->
                                         <Can-Redefine-Classes>true</Can-Redefine-Classes>
                                         <Can-Retransform-Classes>true</Can-Retransform-Classes>
@@ -69,6 +82,29 @@
                                 </transformer>
                             </transformers>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>shade-cached-lookup-key</id>
+                        <phase>prepare-package</phase>
+                        <configuration>
+
+                            <target name="move-and-rename" description="Move and Rename">
+
+                                <move todir="${project.basedir}/target/classes/com/example/agent/template" overwrite="true">
+                                    <fileset dir="${project.basedir}/target/classes//com/example/agent/template" includes="**/*.class" />
+                                    <mapper type="regexp" from="^(.*)\.class$$" to="\1\.declazz" />
+                                </move>
+                            </target>
+
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -85,8 +121,8 @@
             <!--                    <archive>-->
             <!--                        <manifestEntries>-->
             <!--                            // 指定premain()的所在方法-->
-            <!--                            <Agent-CLass>com.example.agentdemo.MyAgent</Agent-CLass>-->
-            <!--                            <Premain-Class>com.example.agentdemo.MyAgent</Premain-Class>-->
+            <!--                            <Agent-CLass>com.example.agentgent</Agent-CLass>-->
+            <!--                            <Premain-Class>com.example.agentgent</Premain-Class>-->
             <!--                            <Can-Redefine-Classes>true</Can-Redefine-Classes>-->
             <!--                            <Can-Retransform-Classes>true</Can-Retransform-Classes>-->
             <!--                        </manifestEntries>-->

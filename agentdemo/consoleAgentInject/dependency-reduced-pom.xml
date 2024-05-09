@@ -24,8 +24,8 @@
               <transformers>
                 <transformer>
                   <manifestEntries>
-                    <Premain-Class>com.example.agentdemo.MyAgent</Premain-Class>
-                    <Agent-Class>com.example.agentdemo.MyAgent</Agent-Class>
+                    <Premain-Class>com.example.agent.MyAgent</Premain-Class>
+                    <Agent-Class>com.example.agent.MyAgent</Agent-Class>
                     <Can-Redefine-Classes>true</Can-Redefine-Classes>
                     <Can-Retransform-Classes>true</Can-Retransform-Classes>
                     <Can-Set-Native-Method-Prefix>true</Can-Set-Native-Method-Prefix>
