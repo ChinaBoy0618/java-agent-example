@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Premain-Class: com.example.agent.MyAgent
+Archiver-Version: Plexus Archiver
+Built-By: zhanguowang
+Agent-Class: com.example.agent.MyAgent
+Can-Redefine-Classes: true
+Multi-Release: true
+Can-Retransform-Classes: true
+Can-Set-Native-Method-Prefix: true
+Created-By: Apache Maven 3.6.3
+Build-Jdk: 1.8.0_221
+

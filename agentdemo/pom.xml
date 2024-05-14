@@ -17,6 +17,8 @@
         <module>consoleAgentInject</module>
         <module>popertiesLauncher</module>
         <module>builds</module>
+        <module>custom-layout</module>
+        <module>agent-package</module>
     </modules>
     <name>agent demo</name>
     <description>Demo project for Spring Boot</description>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>agentdemo</artifactId>
+        <groupId>com.example</groupId>
+        <version>1-SNAPSHOT</version>
+    </parent>
+    <groupId>com.example</groupId>
+    <artifactId>agent-package</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>popertiesLauncher</name>
+    <description>Demo project for Spring Boot</description>
+    <properties>
+        <!--        <java.version>22</java.version>-->
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>2.7.14</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-shade-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <manifestEntries>
+                                        <Premain-Class>com.example.agent.MyAgent</Premain-Class>
+                                        <Agent-Class>com.example.agent.MyAgent</Agent-Class>
+
+                                        <Can-Redefine-Classes>true</Can-Redefine-Classes>
+                                        <Can-Retransform-Classes>true</Can-Retransform-Classes>
+                                        <Can-Set-Native-Method-Prefix>true</Can-Set-Native-Method-Prefix>
+                                        <Multi-Release>true</Multi-Release>
+                                    </manifestEntries>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <configuration>
+                            <layoutFactory implementation="com.example.agent.layout.CustomFactory">
+                                <!--                                这里不需要自定义属性-->
+                                <!--                                <customProperty>value</customProperty>-->
+                            </layoutFactory>
+<!--                            TODO 这里是魔法写法，只是跳过spring-maven-plugin 的校验，并不实际作为启动类.可能在后续agent 启动会出问题-->
+                            <mainClass>com.example.agent.MyAgent</mainClass>
+
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.example</groupId>
+                        <artifactId>custom-layout</artifactId>
+<!--                         TODO 这里是魔法写法，保证在打包过程中，能够拿到fatjar -->
+                        <version>1-SNAPSHOT-fat</version>
+                    </dependency>
+                </dependencies>
+                <!--                <configuration>-->
+                <!--                    <mainClass>org.springframework.boot.loader.launch.PropertiesLauncher</mainClass>-->
+                <!--                    <layout>ZIP</layout>-->
+                <!--                </configuration>-->
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

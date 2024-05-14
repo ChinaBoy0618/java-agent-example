@@ -21,13 +21,9 @@ import static net.bytebuddy.matcher.ElementMatchers.*;
  * @date 2024/4/11 15:22
  */
 public class MyAgent {
-    //    public static void main(String[] args) throws URISyntaxException, MalformedURLException {
-//        new ClassInjector().loaderAgentJarToClassLoader();
-//    }
     // transform's CL
     public static ClassLoader classLoader;
-
-    //    public static ClassLoader customerClassLoader;
+    //todo 这里暂时不对byte buddy进行agent 和 main app 隔离，保证 transform 中未对 class file 进行处理。如果后续有对应的 inject code ，则考虑通过dynamic invoke 指令进行重构
     public static void premain(String agentArgs, Instrumentation instrumentation) {
         System.out.println("premain started");
 

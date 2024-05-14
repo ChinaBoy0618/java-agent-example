@@ -58,7 +58,7 @@ public class SpringExternalClassLoaderTest {
     @Test
     void getResourceAsStreamTest() throws Exception {
 
-        InputStream stream = customCL.getResourceAsStream("com/example/popertieslauncher/TestController.class");
+        InputStream stream = customCL.getResourceAsStream("com/example/agentpackage/TestController.class");
         Assert.assertNotNull(stream);
     }
     /**

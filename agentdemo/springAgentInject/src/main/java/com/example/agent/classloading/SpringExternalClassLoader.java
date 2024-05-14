@@ -12,7 +12,7 @@ import java.security.ProtectionDomain;
 import java.util.*;
 
 /**
- *
+ * TODO  将之前test 硬编码的URL注入改为扫描本fat jar 的lib 进行加载
  * 支持在 spring class path 扫描的时刻动态加载额外的class path jar包的CL
  * @author wzg
  * @date 2024/5/7 13:34

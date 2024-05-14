@@ -1,15 +1,19 @@
 # 目录说明
 
 ``` markdown
-- .
 ├── JavaAgent
 │   ├── consoleAgent //简单的app
-│   └── springAgentDemo//验证注入spring 的app demo
-└── agentdemo
-    ├── builds //公共的全部依赖打包项目-已废弃
-    ├── consoleAgentInject//使用bytebuddy AgentBuidler创建的简单agent，不使用ByteBuddy Agent
-    ├── popertiesLauncher //验证spring -Dload.path 的依赖包
-    └── springAgentInject //验证spring 注入的agent demo
+│   └── springAgentDemo //验证注入spring 的app demo
+├── agentdemo
+│   ├── agent-package
+│   ├── builds //公共的全部依赖打包项目-已废弃
+│   ├── consoleAgentInject //使用bytebuddy AgentBuidler创建的简单agent，不使用ByteBuddy Agent
+│   ├── custom-layout //自定义 spring-maven-plugin 打包插件的layout，将spring的loader包取消注入
+│   ├── popertiesLauncher //验证spring -Dload.path 的依赖包
+│   └── springAgentInject //验证spring 注入的agent demo
+└── doc
+    └── images
+
 ```
 ## 依赖版本
 - JDK1.8
